@@ -53,7 +53,7 @@ html {
 .content{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1rem 1rem;
+  grid-gap: 3rem 3rem;
 }
 
 @media (max-width: 1220px){
