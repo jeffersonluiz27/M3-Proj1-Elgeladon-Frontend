@@ -24,7 +24,7 @@
       <div class="buscar__paleta">
         <div id="buscar_paleta">
           <input type="number" id="idPaleta" placeholder="Digite o ID da paleta">
-          <button id="idPaletaButton" onclick="findByIdPaletas">
+          <button id="idPaletaButton" onclick="findPaletaById()">
           </button>
         </div>
       </div>
@@ -32,6 +32,23 @@
     <div class="main__container">
         <div class="content" id="contentList">
         </div>
+    </div>
+  </section>
+
+  <section class="modal-overlay" id="overlay">
+  
+    <div class="modal">
+  
+      <div class="modal-header">
+        <h2>Paleta Escolhida</h2>
+        <a onclick="fecharModal()" class="close-modal">x</a>
+      </div>
+  
+      <div class="modal-body">
+        <div id="paletaEscolhida">
+  
+        </div>
+      </div>
     </div>
   </section>
 
