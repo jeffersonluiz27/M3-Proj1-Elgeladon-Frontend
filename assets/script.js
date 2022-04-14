@@ -36,7 +36,7 @@ const findPaletaById = async () => {
     alert('Digite um numero maior que 0!');
   }else{
 
-      document.querySelector(".modal-overlay").style.display = "flex";
+      document.querySelector(".modal-overlay1").style.display = "flex";
 
       const response = await fetch(`${baseUrl}/find-paleta/${id}`);
 
@@ -60,9 +60,13 @@ const findPaletaById = async () => {
 };
 
 function abrirModalCadastro() {
-  document.querySelector(".modal-overlay").style.display = "flex";
+  document.querySelector(".modal-overlay2").style.display = "flex";
+}
+
+function fecharModalCadastro() {
+  document.querySelector(".modal-overlay2").style.display = "none";
 }
 
 function fecharModal() {
-  document.querySelector(".modal-overlay").style.display = "none";
+  document.querySelector(".modal-overlay1").style.display = "none";
 }

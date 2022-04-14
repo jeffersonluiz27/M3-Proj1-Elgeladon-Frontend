@@ -171,7 +171,7 @@ div.paletaItem__preco{
   margin-right: -60px;
 }
 
-.modal-overlay{
+.modal-overlay1, .modal-overlay2{
   background-color: #00000050;
   width: 100vw;
   height: 100vh;

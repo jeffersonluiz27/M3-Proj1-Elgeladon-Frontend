@@ -14,10 +14,11 @@
 
 <body>
   <section class="main">
+    
     <div class="topbar">
       <div id="titulo">
         <img
-          src="./assets/images/spaces_85kl7UI0t2lbZjTHkUNg_uploads_git-blob-730007a46388f5e9d0428f36b2b2b234032b4f8e_logo-el-geladon.png"
+          src="./assets/images/logo-el-geladon.png"
           width="50" alt="">
         <h1>El Geladon</h1>
       </div>
@@ -29,13 +30,39 @@
         </div>
       </div>
     </div>
+    <section class="button-modal-create">
+      <button type="button" class="default-button" onclick="abrirModalCadastro()">Cadastrar Paleta</button>
+    </section>
+    
+    <section class="modal-overlay2" id="overlay2">
+    
+      <div class="modal">
+    
+        <div class="modal-header">
+          <h2>Cadastrar uma paleta</h2>
+          <a onclick="fecharModalCadastro()" class="close-modal">x</a>
+        </div>
+    
+        <div class="modal-body">
+          <div>
+            <input type="text" name="sabor" id="sabor" placeholder="Sabor da Paleta">
+            <input type="number" name="preco" id="preco" placeholder="Preço da Paleta">
+            <textarea type="text" name="descricao" id="descricao" placeholder="Descrição da Paleta" rows="5"></textarea>
+            <input type="text" name="foto" id="foto" placeholder="Link da Foto da Paleta">
+            <button onclick="createPaleta()">Cadastrar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="main__container">
         <div class="content" id="contentList">
         </div>
     </div>
+
   </section>
 
-  <section class="modal-overlay" id="overlay">
+  <section class="modal-overlay1" id="overlay1">
   
     <div class="modal">
   
@@ -45,11 +72,10 @@
       </div>
   
       <div class="modal-body">
-        <div id="paletaEscolhida">
-  
+        <div id="paletaEscolhida"></div>
         </div>
-      </div>
-    </div>
+        </div>
+
   </section>
 
   <script src="./assets/script.js"></script>
