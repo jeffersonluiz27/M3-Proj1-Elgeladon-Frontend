@@ -26,16 +26,66 @@ html {
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
 }
 
-.main h2 {
-  display: flex;
-  justify-content: space-around;
-  color: black;
-}
-
 .main div{
   display: flex;
   justify-content: center;
   color: black;
+}
+
+.topbar{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+#titulo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color:#85d7f3;
+  width: 15rem;
+  height: 2rem;
+  border-radius: 1.2rem;
+  align-self: center;
+  justify-self: center;
+}
+
+.buscar__paleta{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+#idPaleta {
+  padding: 0.5rem;
+  width: 80%;
+  border: none;
+  border-radius: 0.2rem;
+  
+}
+
+#idPaletaButton {
+  background-color: transparent;
+  background-image:url(./images/pngwing.com.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid #464545;
+  padding: 0.4rem;
+  margin-left: .3rem;
+  border-radius: 0.2rem;
+  width: 3rem;
+  height: 2.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 1rem;
+}
+
+#idPaletaButton:hover {
+  background-color: #706f6f;
+  color: #ffffff;
 }
 
 .main__container {
@@ -54,6 +104,11 @@ html {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 3rem 3rem;
+}
+
+#contentList{
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 1220px){
