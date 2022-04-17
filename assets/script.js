@@ -16,10 +16,17 @@ async function findAllPaletas() {
               2
             )}</div>
             <div class="paletaItem__descricao">${paleta.descricao}</div>
+            <div class="paletaItem__acoes">
+              <div class="acoes">
+                <button class="acoes__editar btn" onclick="abrirModal(${paleta.id})">Editar</button> 
+                <button class="acoes__apagar btn">Apagar</button> 
+              </div>
+            </div>
         </div>
             <img class="paletaItem__img" src=${
               paleta.foto
             } alt=${`Paleta de ${paleta.sabor}`} />
+            
       </div>`
     );
     console.log({paleta})

@@ -88,6 +88,19 @@ html {
   color: #ffffff;
 }
 
+.default-button{
+  border: none;
+  border-radius: .3rem;
+  padding: .5rem;
+  max-width: 280px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 12rem;
+  
+  transition: all 0.3s ease-in-out;
+}
+
 .main__container {
   display: flex;
   align-items: center;
@@ -130,12 +143,11 @@ html {
   padding: 10px;
   width: 315px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .paletaItem{
   margin: 20px 0;
-  height: 150px;
   
 }
 
@@ -267,4 +279,56 @@ div.paletaItem__preco{
 .button-modal-create{
   display: flex;
   justify-content: flex-end;
+}
+
+
+.paletaItem__acoes{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 15rem;
+  margin-top: 1rem;
+}
+
+.btn{
+  border: none;
+  border-radius: .3rem;
+  padding: .2rem;
+  max-width: 280px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 5rem;
+  
+  transition: all 0.3s ease-in-out;
+}
+
+.acoes{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.acoes__editar{
+  color:#003cff;
+  border: solid 1px #003cff;
+  background-color: transparent;
+  margin-bottom: .3rem;
+  
+}
+
+.acoes__editar:hover{
+  color:#fff;
+  background-color: #003cff;
+}
+
+.acoes__apagar{
+  color:#ff0000;
+  border: solid 1px #ff0000;
+  background-color: transparent;
+}
+
+.acoes__apagar:hover{
+  color:#fff;
+  background-color: #ff0000;
 }
