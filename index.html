@@ -45,11 +45,12 @@
     
         <div class="modal-body">
           <div id="modal-body">
+            <input type="hidden" id="id">
             <input type="text" name="sabor" id="sabor" placeholder="Sabor da Paleta">
             <input type="number" name="preco" id="preco" placeholder="Preço da Paleta">
             <textarea type="text" name="descricao" id="descricao" placeholder="Descrição da Paleta" rows="5"></textarea>
             <input type="text" name="foto" id="foto" placeholder="Link da Foto da Paleta">
-            <button onclick="createPaleta()">Cadastrar</button>
+            <button id="button-modal" onclick="createPaleta()">Cadastrar</button>
           </div>
         </div>
       </div>
@@ -60,6 +61,22 @@
         </div>
     </div>
 
+  </section>
+
+  <section class="modal-overlay2" id="overlay-delete">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="title-header-modal">Confirmação de deleção</h2>
+        <a onclick="fecharModalDelete()" class="close-modal">x</a>
+      </div>
+      <div class="modal-body-delete">
+        <p>Deseja realmente apagar essa paleta?</p>
+        <div class="btns_delete">
+          <button class="btn_delete_no btn_delete" onclick="fecharModalDelete()">Não</button>
+          <button class="btn_delete_yes btn_delete">Sim</button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="modal-overlay1" id="overlay1">

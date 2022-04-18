@@ -9,17 +9,15 @@ async function findAllPaletas() {
   paletas.forEach((paleta) => {
     document.getElementById("contentList").insertAdjacentHTML(
       "beforeend",
-      `<div class="paletaItem">
+      `<div class="paletaItem" id="paletaItem_${paleta.id}">
         <div>
             <div class="paletaItem__sabor">${paleta.sabor}</div>
-            <div class="paletaItem__preco">R$ ${paleta.preco.toFixed(
-              2
-            )}</div>
+            <div class="paletaItem__preco">R$ ${paleta.preco}</div>
             <div class="paletaItem__descricao">${paleta.descricao}</div>
             <div class="paletaItem__acoes">
               <div class="acoes">
                 <button class="acoes__editar btn" onclick="abrirModal(${paleta.id})">Editar</button> 
-                <button class="acoes__apagar btn">Apagar</button> 
+                <button class="acoes__apagar btn" onclick="abrirModalDelete(${paleta.id})">Apagar</button> 
               </div>
             </div>
         </div>
@@ -58,17 +56,22 @@ const findPaletaById = async () => {
       }else{
         const paletaEscolhidaDiv = document.getElementById("paletaEscolhida");
 
-        paletaEscolhidaDiv.innerHTML = `<div class="paletaItem">
-        <div>
-            <div class="paletaItem__sabor">${paleta.sabor}</div>
-            <div class="paletaItem__preco">R$ ${paleta.preco.toFixed(
-              2
-            )}</div>
-            <div class="paletaItem__descricao">${paleta.descricao}</div>
-        </div>
-            <img class="paletaItem__img" src=${
-              paleta.foto
-            } alt=${`Paleta de ${paleta.sabor}`} />
+        paletaEscolhidaDiv.innerHTML = `
+        <div class="paletaItem" id="paletaItem_${paleta.id}">
+          <div>
+              <div class="paletaItem__sabor">${paleta.sabor}</div>
+              <div class="paletaItem__preco">R$ ${paleta.preco}</div>
+              <div class="paletaItem__descricao">${paleta.descricao}</div>
+              <div class="paletaItem__acoes">
+                <div class="acoes">
+                  <button class="acoes__editar btn" onclick="abrirModal(${paleta.id})">Editar</button> 
+                  <button class="acoes__apagar btn" onclick="abrirModalDelete(${paleta.id})">Apagar</button> 
+                </div>
+              </div>
+            </div>
+              <img class="paletaItem__img" src=${
+                paleta.foto
+              } alt=${`Paleta de ${paleta.sabor}`} />
         </div>`;
       }
 
@@ -80,11 +83,25 @@ function fecharModal() {
   document.querySelector(".modal-overlay1").style.display = "none";
 }
 
-function abrirModal(id = null) {
+async function abrirModal(id = null) {
   if(id != null){
     document.querySelector("#title-modal").innerText = "Editar uma paleta";
+    
+    document.querySelector("#button-modal").innerText = "Atualizar";
+
+    const response = await fetch(`${baseUrl}/find-paleta/${id}`);
+
+    const paleta = await response.json();
+
+    document.querySelector("#id").value = paleta.id;
+    document.querySelector("#sabor").value = paleta.sabor;
+    document.querySelector("#preco").value = paleta.preco;
+    document.querySelector("#descricao").value = paleta.descricao;
+    document.querySelector("#foto").value = paleta.foto;
+
   }else{
     document.querySelector("#title-modal").innerText = "Cadastrar uma paleta";
+    document.querySelector("#button-modal").innerText = "Cadastrar";
   }
   document.querySelector(".modal-overlay2").style.display = "flex";
 }
@@ -98,20 +115,27 @@ function fecharModalCadastro() {
 }
 
 async function createPaleta() {
+
+  const id = document.querySelector("#id").value;
   const sabor = document.querySelector("#sabor").value;
   const preco = document.querySelector("#preco").value;
   const descricao = document.querySelector("#descricao").value;
   const foto = document.querySelector("#foto").value;
 
   const paleta = {
+    id,
     sabor,
     preco,
     descricao,
     foto,
   };
 
-  const response = await fetch(`${baseUrl}/create`, {
-    method: "post",
+  const modoEdicao = id > 0;
+
+  const endpoint = baseUrl + (modoEdicao ? `/update/${id}` : '/create');
+
+  const response = await fetch(endpoint, {
+    method: modoEdicao ? "put" : "post",
     headers: {
       "Content-Type": "application/json",
     },
@@ -122,19 +146,57 @@ async function createPaleta() {
   const novaPaleta = await response.json();
 
   const html = `
-  <div class="paletaItem">
+  <div class="paletaItem" id="paletaItem_${paleta.id}">
     <div>
         <div class="paletaItem__sabor">${novaPaleta.sabor}</div>
         <div class="paletaItem__preco">R$ ${novaPaleta.preco}</div>
         <div class="paletaItem__descricao">${novaPaleta.descricao}</div>
+        <div class="paletaItem__acoes">
+              <div class="acoes">
+                <button class="acoes__editar btn" onclick="abrirModal(${paleta.id})">Editar</button> 
+                <button class="acoes__apagar btn" onclick="abrirModalDelete(${paleta.id})">Apagar</button> 
+              </div>
+            </div>
     </div>
     <img class="paletaItem__img" src="${novaPaleta.foto}" alt="Paleta de ${novaPaleta.sabor}" />
   </div>`;
 
-  document.querySelector("#contentList").insertAdjacentHTML("beforeend", html);
+  if(modoEdicao){
+    document.querySelector(`#paletaItem_${paleta.id}`).outerHTML = html;
+
+  }else{
+    document.querySelector("#contentList").insertAdjacentHTML("beforeend", html);
+  }
 
   fecharModalCadastro();
 }
 
+function abrirModalDelete(id) {
+  document.querySelector("#overlay-delete").style.display = "flex";
 
+  const btnSim = document.querySelector(".btn_delete_yes")
 
+  btnSim.addEventListener("click", function() {
+    deletePaleta(id);
+  })
+}
+
+function fecharModalDelete() {
+  document.querySelector("#overlay-delete").style.display = "none";
+}
+
+const deletePaleta = async (id) => {
+  const response = await fetch(`${baseUrl}/delete/${id}`, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+  });
+  const result = await response.json();
+  alert(result.message);
+  document.getElementById("contentList").innerHTML = "";
+  fecharModalDelete();
+  window.location.reload();
+  findAllPaletas();
+};
