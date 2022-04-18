@@ -89,7 +89,7 @@ html {
 }
 
 .default-button{
-  border: none;
+  border: 1px solid #5833ff;
   border-radius: .3rem;
   padding: .5rem;
   max-width: 280px;
@@ -97,8 +97,14 @@ html {
   text-transform: uppercase;
   cursor: pointer;
   width: 12rem;
-  
+  background-color: transparent;
+  color:#2d00f7;
   transition: all 0.3s ease-in-out;
+}
+
+.default-button:hover{
+  background-color: #5833ff;
+  color:#ffffff;
 }
 
 .main__container {

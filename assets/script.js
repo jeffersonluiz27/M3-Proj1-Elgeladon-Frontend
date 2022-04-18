@@ -49,20 +49,30 @@ const findPaletaById = async () => {
 
       const paleta = await response.json();
 
-      const paletaEscolhidaDiv = document.getElementById("paletaEscolhida");
+      if(paleta.id == undefined){
+        const paletaEscolhidaDiv = document.getElementById("paletaEscolhida");
+        paletaEscolhidaDiv.innerHTML = `<div class="paletaItem">
+        <div>
+            <div class="paletaItem__sabor">Paleta não encontrada</div>
+        </div>`
+      }else{
+        const paletaEscolhidaDiv = document.getElementById("paletaEscolhida");
 
-      paletaEscolhidaDiv.innerHTML = `<div class="paletaItem">
-      <div>
-          <div class="paletaItem__sabor">${paleta.sabor}</div>
-          <div class="paletaItem__preco">R$ ${paleta.preco.toFixed(
-            2
-          )}</div>
-          <div class="paletaItem__descricao">${paleta.descricao}</div>
-      </div>
-          <img class="paletaItem__img" src=${
-            paleta.foto
-          } alt=${`Paleta de ${paleta.sabor}`} />
-      </div>`;
+        paletaEscolhidaDiv.innerHTML = `<div class="paletaItem">
+        <div>
+            <div class="paletaItem__sabor">${paleta.sabor}</div>
+            <div class="paletaItem__preco">R$ ${paleta.preco.toFixed(
+              2
+            )}</div>
+            <div class="paletaItem__descricao">${paleta.descricao}</div>
+        </div>
+            <img class="paletaItem__img" src=${
+              paleta.foto
+            } alt=${`Paleta de ${paleta.sabor}`} />
+        </div>`;
+      }
+
+      
     }
 };
 
@@ -70,7 +80,12 @@ function fecharModal() {
   document.querySelector(".modal-overlay1").style.display = "none";
 }
 
-function abrirModalCadastro() {
+function abrirModal(id = null) {
+  if(id != null){
+    document.querySelector("#title-modal").innerText = "Editar uma paleta";
+  }else{
+    document.querySelector("#title-modal").innerText = "Cadastrar uma paleta";
+  }
   document.querySelector(".modal-overlay2").style.display = "flex";
 }
 
